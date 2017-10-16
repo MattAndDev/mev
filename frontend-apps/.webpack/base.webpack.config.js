@@ -15,7 +15,7 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: process.env.APP_DIST_DIR,
-    publicPath: '/'
+    publicPath: ''
   },
   module: {
     rules: [
