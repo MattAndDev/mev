@@ -1,66 +1,31 @@
+'use strict'
 // core
-const path = require('path')
-const env = require('../../.env')
+const baseConfig = require('./base.webpack.config')
 const webpack = require('webpack')
+// libs
+const merge = require('webpack-merge')
+// Plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-// paths
-// const JsDir = path.resolve(process.env.frontend_app_root_dir, 'js/')
-const RootDir  = process.env.frontend_app_root_dir
-const DistDir = path.resolve('./public/${webpackApp}')
+// Get constant paths passed in by builder script
+const rootSrcDir  = process.env.frontend_app_root_dir
+
+// add hot-reload related code to entry chunks
+Object.keys(baseConfig.entry).forEach(function (name) {
+  // TODO: make path absolute
+  baseConfig.entry[name] = ['../.webpack/hot-client-config'].concat(baseConfig.entry[name])
+})
 
 
-
-module.exports = {
-  context: RootDir,
-  entry: {
-    app: path.resolve(RootDir, 'index.js')
-  },
-  output: {
-    filename: '[name].js',
-    path: DistDir,
-    publicPath: '/'
-  },
+module.exports = merge(baseConfig, {
   devtool: '#cheap-module-eval-source-map',
   plugins: [
    new webpack.HotModuleReplacementPlugin(),
-   new webpack.NoEmitOnErrorsPlugin(),
-   new HtmlWebpackPlugin({
+    new webpack.NoEmitOnErrorsPlugin(),
+    new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: `${RootDir}/index.html`,
+      template: `${rootSrcDir}/index.html`,
       inject: true
     })
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: ['env']
-          }
-        }]
-      },
-      {
-        test: /\.svg$/,
-        loader: 'svg-sprite-loader'
-      },
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-      }
-    ]
-  },
-  resolve: {
-    alias: {
-      '@': RootDir,
-      vue: 'vue/dist/vue.js',
-      // components: path.resolve(JsDir, 'components'),
-      // views: path.resolve(JsDir, 'views'),
-      // store: path.resolve(JsDir, 'store'),
-      // settings: path.resolve(JsDir, 'utils/settings')
-    }
-  }
-}
+  ]
+})
