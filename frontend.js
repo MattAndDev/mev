@@ -12,7 +12,6 @@ const env = require('./.env')
 // core builders
 const devFrontendServer = require('./frontend-apps/.webpack/utils/dev-server')
 
-
 // Frontend builder 👷
 const frontend = async () => {
 
@@ -40,7 +39,7 @@ const frontend = async () => {
   // first create path to cehck if app entry file exists
   let entryFile = `./${env.frontendFolder}/${webpackApp}/index.js`
 
-  // first check if ffrontend app is passed as argument
+  // first check if frontend app is passed as argument
   try {
     let entry = await stat(entryFile)
   }
@@ -54,7 +53,7 @@ const frontend = async () => {
   // Ok validation is fine we can pass on data
   process.env['APP_NAME'] = webpackApp
   process.env['APP_SRC_DIR'] = path.resolve(`./${env.frontendFolder}/${webpackApp}/`)
-  console.log(process.env.APP_SRC_DIR)
+  process.env['APP_DIST_DIR'] = path.resolve(`./public/${webpackApp}/`)
   devFrontendServer()
 }
 module.exports = frontend()

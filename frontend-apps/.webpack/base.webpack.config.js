@@ -7,9 +7,6 @@
 // core
 const path = require('path')
 
-// Get constant paths passed in by builder script
-const distDir = path.resolve('./public/${webpackApp}')
-
 module.exports = {
   context: process.env.APP_SRC_DIR,
   entry: {
@@ -17,7 +14,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: distDir,
+    path: process.env.APP_DIST_DIR,
     publicPath: '/'
   },
   module: {
@@ -51,7 +48,8 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 10000
+              limit: 10000,
+              name: '[path][name].[ext]'
             }
           },
           {
