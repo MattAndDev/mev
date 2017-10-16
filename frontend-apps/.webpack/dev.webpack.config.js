@@ -1,77 +1,66 @@
-var path = require('path')
-var env = require('../../.env')
-var webpack = require('webpack')
-const jsDir = path.resolve(process.env.frontend_app_root_dir, 'js/')
-const RootDir  = process.env.frontend_app_root_dir
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// core
+const path = require('path')
+const env = require('../../.env')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const extractSass = new ExtractTextPlugin({
-  filename: '../css/main.css',
-  disable: process.env.NODE_ENV === 'development'
-})
+// paths
+// const JsDir = path.resolve(process.env.frontend_app_root_dir, 'js/')
+const RootDir  = process.env.frontend_app_root_dir
+const DistDir = path.resolve('./public/${webpackApp}')
+
+
+
 module.exports = {
   context: RootDir,
-  // entry: [path.resolve(__dirname, 'index.js'), path.resolve(__dirname, 'sass/main.sass')],
-  entry: [path.resolve(RootDir, 'index.js')],
+  entry: {
+    app: path.resolve(RootDir, 'index.js')
+  },
   output: {
-    path: path.resolve(RootDir, '../js'),
-    filename: 'index.js'
+    filename: '[name].js',
+    path: DistDir,
+    publicPath: '/'
   },
-  devServer: {
-    publicPath: '/js/',
-    contentBase: RootDir,
-    hot: true
-  },
+  devtool: '#cheap-module-eval-source-map',
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    extractSass
+   new webpack.HotModuleReplacementPlugin(),
+   new webpack.NoEmitOnErrorsPlugin(),
+   new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: `${RootDir}/index.html`,
+      inject: true
+    })
   ],
   module: {
-    rules: [{
-      test: /\.js$/,
-      exclude: /(node_modules)/,
-      use: [{
-        loader: 'babel-loader',
-        options: {
-          presets: ['env']
-        }
-      }]
-    },
-    {
-      test: /\.svg$/,
-      loader: 'svg-sprite-loader'
-    },
-    {
-      test: /\.vue$/,
-      loader: 'vue-loader',
-    },
-    {
-      test: /\.sass$/,
-      use: extractSass.extract({
-        use: [
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              includePaths: [path.resolve(RootDir, '../../node_modules/normalize.css')]
-            }
-          },
-        ],
-        fallback: 'style-loader'
-      })
-    }
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: ['env']
+          }
+        }]
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader'
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      }
     ]
   },
   resolve: {
     alias: {
       '@': RootDir,
       vue: 'vue/dist/vue.js',
-      components: path.resolve(jsDir, 'components'),
-      views: path.resolve(jsDir, 'views'),
-      store: path.resolve(jsDir, 'store'),
-      settings: path.resolve(jsDir, 'utils/settings')
+      // components: path.resolve(JsDir, 'components'),
+      // views: path.resolve(JsDir, 'views'),
+      // store: path.resolve(JsDir, 'store'),
+      // settings: path.resolve(JsDir, 'utils/settings')
     }
   }
 }
