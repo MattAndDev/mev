@@ -8,13 +8,12 @@
 const path = require('path')
 
 // Get constant paths passed in by builder script
-const rootSrcDir  = process.env.frontend_app_root_dir
 const distDir = path.resolve('./public/${webpackApp}')
 
 module.exports = {
-  context: rootSrcDir,
+  context: process.env.APP_SRC_DIR,
   entry: {
-    app: path.resolve(rootSrcDir, 'index.js')
+    app: path.resolve(process.env.APP_SRC_DIR, 'index.js')
   },
   output: {
     filename: '[name].js',
@@ -24,6 +23,7 @@ module.exports = {
   module: {
     rules: [
       {
+        // pure js loader
         test: /\.js$/,
         exclude: /(node_modules)/,
         use: [
@@ -35,6 +35,7 @@ module.exports = {
           }
         ]
       },
+      // svg sprite loader
       {
         test: /\.svg$/,
         loader: 'svg-sprite-loader'
@@ -62,7 +63,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@': rootSrcDir,
+      '@': process.env.APP_SRC_DIR,
       vue: 'vue/dist/vue.js'
     }
   }
