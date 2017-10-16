@@ -42,8 +42,8 @@ module.exports = {
         loader: 'vue-loader',
       },
       {
-        test: /\.(png|jpe?g|gif)(\?.*)?$/,
-
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        exclude: /(svg-icons)/,
         use: [
           {
             loader: 'url-loader',
