@@ -11,6 +11,7 @@ const env = require('./.env')
 
 // core builders
 const devFrontendServer = require('./frontend-apps/.webpack/utils/dev-server')
+const build = require('./frontend-apps/.webpack/utils/build')
 
 // Frontend builder 👷
 const frontend = async () => {
@@ -29,7 +30,7 @@ const frontend = async () => {
     process.exit(0)
   }
   // globalize the environment
-  process.env.NODE_ENV = env
+  process.env.NODE_ENV = currentEnv
 
 
   // get process args
@@ -54,6 +55,11 @@ const frontend = async () => {
   process.env['APP_NAME'] = webpackApp
   process.env['APP_SRC_DIR'] = path.resolve(`./${env.frontendFolder}/${webpackApp}/`)
   process.env['APP_DIST_DIR'] = path.resolve(`./public/${webpackApp}/`)
-  devFrontendServer()
+  if (process.env.NODE_ENV === 'development') {
+    devFrontendServer()
+  }
+  else if (process.env.NODE_ENV === 'production') {
+    build()
+  }
 }
 module.exports = frontend()
