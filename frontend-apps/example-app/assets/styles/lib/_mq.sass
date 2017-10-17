@@ -1,0 +1,15 @@
+//============================================
+// mq
+//============================================
+
+=mq($breakpoint, $under: false , $media: all)
+  $sizes: map-get($breakpoints, $breakpoint)
+  @if $sizes == null
+    @error "Breakpoint '#{$breakpoint}' was not found in configuration vadiable $breakpoints"
+  $string: ""
+  @if $under == false
+    $string: "(min-width: #{map-get($sizes,'width') + (map-get($sizes,'gutter') * 2)})"
+  @else
+    $string: "(max-width: #{map-get($sizes,'width') + (map-get($sizes,'gutter') * 2) - 1px})"
+  @media #{$media} and #{$string}
+    @content

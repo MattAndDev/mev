@@ -1,0 +1,64 @@
+//============================================
+// Global variables
+//============================================
+
+
+// Colors
+//============================================
+
+$primary:     #00F;
+$black:       #111;
+$white:       #FFFFFF;
+
+$gray:        #DDD;
+$gray-light:  #F7F7F7;
+$gray-dark:   #767676;
+
+
+// Pass on for semantics
+$color-text:  $black;
+$color-bg:    $white;
+
+
+$breakpoints: (
+  xs: (
+    gutter: 16px,
+    width:416px
+  ),
+  sm: (
+    gutter: 20px,
+    width: 728px
+  ),
+  md: (
+    gutter: 22px,
+    width: 966px
+  ),
+  lg: (
+    gutter: 30px,
+    width: 1290px
+  ),
+  xl: (
+    gutter: 30px,
+    width: 1490px
+  )
+);
+
+
+// Dimensions
+//============================================
+
+$space:           24px;
+$space-half:      $space * 0.5;
+$space-quarter:   $space * 0.25;
+$space-duble:     $space * 2;
+$space-triple:    $space * 3;
+$space-quad:      $space * 4;
+
+// Typography
+//============================================
+
+$font:          "Helvetica Neue", Arial, sans-serif;
+$font-heading:  $font;
+$font-mono:     monospace, monospace;
+$font-size:     15px;
+$line-height:   ($space / $font-size);
