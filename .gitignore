@@ -9,10 +9,7 @@ node_modules/
 
 # ignore public builds
 public/*
-
-# Keep the rest
-!public/.src
-!public/index.html
+!public/.gitkeep
 
 # Logs
 logs/*
@@ -20,3 +17,6 @@ logs/*
 
 # osx
 .DS_Store
+
+# ignore tests for now
+/test
