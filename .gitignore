@@ -7,7 +7,7 @@ node_modules/
 # env
 *.env.js
 
-# ignore public builds
+# ignore public b  uilds
 public/*
 !public/.gitkeep
 
@@ -21,6 +21,5 @@ logs/*
 # ignore tests for now
 /test
 
-# apps!
-frontend-apps/*
-!frontend-apps/.gitkeep
+static/*
+!static/.gitkeep
