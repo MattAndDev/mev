@@ -20,3 +20,7 @@ logs/*
 
 # ignore tests for now
 /test
+
+# apps!
+frontend-apps/*
+!frontend-apps/.gitkeep
