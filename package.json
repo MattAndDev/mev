@@ -19,10 +19,9 @@
     "email": "me@mattinthe.net",
     "url": "https://mattinthe.net"
   },
-  "d  ependencies": {
+  "dependencies": {
     "app-module-path": "^2.2.0",
     "body-parser": "^1.18.2",
-    "connect-history-api-fallback": "^1.4.0",
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "glob": "^7.1.2",
@@ -40,7 +39,6 @@
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
-    "eventsource-polyfill": "^0.9.6",
     "nodemon": "^1.12.1"
   },
   "license": "WTFPL"
